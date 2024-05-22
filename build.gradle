@@ -41,7 +41,7 @@ dependencies {
 
     modImplementation "maven.modrinth:sodium:mc1.20.4-0.5.8"
     modImplementation "maven.modrinth:iris:1.7.0+1.20.4"
-
+    
     modRuntimeOnly 'org.anarres:jcpp:1.4.14'
     modRuntimeOnly 'io.github.douira:glsl-transformer:2.0.0-pre13'
 
