@@ -1,62 +1,23 @@
-plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
-    id 'maven-publish'
-}
-
-version = project.mod_version
-group = project.maven_group
-
-repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
-}
-
-repositories {
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = "https://api.modrinth.com/maven"
-            }
-        }
-        filter {
-            includeGroup "maven.modrinth"
-        }
-    }
-}
-
-dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation(fabricApi.module("fabric-rendering-fluids-v1", project.fabric_version))
-    modImplementation(fabricApi.module("fabric-rendering-data-attachment-v1", project.fabric_version))
-    modImplementation(fabricApi.module("fabric-key-binding-api-v1", project.fabric_version))
-    modImplementation(fabricApi.module("fabric-key-binding-api-v1", project.fabric_version))
+@@ -38,8 +38,8 @@ dependencies {
+    modImplementation("net.fabricmc.fabric-api:fabric-rendering-data-attachment-v1:0.3.38+73761d2e9a")
     modImplementation(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
 
+    modImplementation "maven.modrinth:sodium:mc1.20.1-0.5.8"
+    modImplementation "maven.modrinth:iris:1.7.0+1.20.1"
     modImplementation "maven.modrinth:sodium:mc1.20.4-0.5.8"
     modImplementation "maven.modrinth:iris:1.7.0+1.20.4"
-    
+
     modRuntimeOnly 'org.anarres:jcpp:1.4.14'
     modRuntimeOnly 'io.github.douira:glsl-transformer:2.0.0-pre13'
-
     modRuntimeOnly 'net.java.dev.jna:jna:5.9.0'
 }
-
 processResources {
     inputs.property "version", project.version
     filteringCharset "UTF-8"
-
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
 }
-
 def targetJavaVersion = 17
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -68,7 +29,6 @@ tasks.withType(JavaCompile).configureEach {
         it.options.release = targetJavaVersion
     }
 }
-
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     if (JavaVersion.current() < javaVersion) {
@@ -80,13 +40,11 @@ java {
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
-
 jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
     }
 }
-
 // configure the maven publication
 publishing {
     publications {
@@ -94,7 +52,6 @@ publishing {
             from components.java
         }
     }
-
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         // Add repositories to publish to here.
@@ -103,12 +60,8 @@ publishing {
         // retrieving dependencies.
     }
 }
-
-
 import org.gradle.internal.os.OperatingSystem
-
 project.ext.lwjglVersion = "3.3.1"
-
 switch (OperatingSystem.current()) {
     case OperatingSystem.LINUX:
         def osArch = System.getProperty("os.arch")
@@ -120,32 +73,25 @@ switch (OperatingSystem.current()) {
         project.ext.lwjglNatives = "natives-windows"
         break
 }
-
 repositories {
     mavenCentral()
 }
 project.ext.lwjglNatives = "natives-windows"
-
 dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
-
     include(implementation("org.lwjgl:lwjgl-meshoptimizer"))
     include(implementation("org.lwjgl:lwjgl-vma"))
     include(implementation("org.lwjgl:lwjgl-vulkan"))
     include(implementation("org.lwjgl:lwjgl-shaderc"))
     include(implementation("org.lwjgl:lwjgl-spvc"))
-
     include(runtimeOnly("org.lwjgl:lwjgl-meshoptimizer:$lwjglVersion:$lwjglNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl-vma:$lwjglVersion:$lwjglNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl-shaderc:$lwjglVersion:$lwjglNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl-spvc:$lwjglVersion:$lwjglNatives"))
-
     include(implementation("org.lwjgl:lwjgl-meshoptimizer:$lwjglVersion:$lwjglNatives"))
     include(implementation("org.lwjgl:lwjgl-vma:$lwjglVersion:$lwjglNatives"))
     include(implementation("org.lwjgl:lwjgl-shaderc:$lwjglVersion:$lwjglNatives"))
     include(implementation("org.lwjgl:lwjgl-spvc:$lwjglVersion:$lwjglNatives"))
-
-
     implementation "org.lwjgl:lwjgl"
     implementation "org.lwjgl:lwjgl-glfw"
     implementation "org.lwjgl:lwjgl-opengl"
@@ -153,13 +99,10 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
 }
-
-
 project.ext.lwjglVersion = "3.3.1"
 project.ext.jomlVersion = "1.10.4"
 project.ext.winNatives = "natives-windows"
 project.ext.linuxNatives = "natives-linux"
-
 dependencies {
     include(implementation("org.lwjgl:lwjgl:$lwjglVersion"))
     include(implementation("org.lwjgl:lwjgl-vulkan:$lwjglVersion"))
@@ -167,7 +110,6 @@ dependencies {
     include(implementation("org.joml:joml:${jomlVersion}"))
     include(runtimeOnly("org.lwjgl:lwjgl-vma:$lwjglVersion:$winNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl-vma:$lwjglVersion:$linuxNatives"))
-
     include(implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion"))
     include(runtimeOnly("org.lwjgl:lwjgl-glfw:$lwjglVersion:$winNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl-glfw:$lwjglVersion:$linuxNatives"))
@@ -179,7 +121,6 @@ dependencies {
     include(runtimeOnly("org.lwjgl:lwjgl-openal:$lwjglVersion:$linuxNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl:$lwjglVersion:$winNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl:$lwjglVersion:$linuxNatives"))
-
     include(implementation("org.lwjgl:lwjgl-shaderc:$lwjglVersion"))
     include(runtimeOnly("org.lwjgl:lwjgl-shaderc:$lwjglVersion:$winNatives"))
     include(runtimeOnly("org.lwjgl:lwjgl-shaderc:$lwjglVersion:$linuxNatives"))
