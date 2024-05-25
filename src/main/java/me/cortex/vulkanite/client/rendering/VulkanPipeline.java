@@ -83,12 +83,12 @@ public class VulkanPipeline {
             this.blockAtlasNormalView = new SharedImageViewTracker(ctx, ()->{
                 AbstractTexture blockAtlas = MinecraftClient.getInstance().getTextureManager().getTexture(new Identifier("minecraft", "textures/atlas/blocks.png"));
                 PBRTextureHolder holder = PBRTextureManager.INSTANCE.getOrLoadHolder(blockAtlas.getGlId());//((TextureAtlasExtension)blockAtlas).getPBRHolder()
-                return ((IVGImage)holder.getNormalTexture()).getVGImage();
+                return ((IVGImage)holder.normalTexture()).getVGImage();
             });
             this.blockAtlasSpecularView = new SharedImageViewTracker(ctx, ()->{
                 AbstractTexture blockAtlas = MinecraftClient.getInstance().getTextureManager().getTexture(new Identifier("minecraft", "textures/atlas/blocks.png"));
                 PBRTextureHolder holder = PBRTextureManager.INSTANCE.getOrLoadHolder(blockAtlas.getGlId());//((TextureAtlasExtension)blockAtlas).getPBRHolder()
-                return ((IVGImage)holder.getSpecularTexture()).getVGImage();
+                return ((IVGImage)holder.specularTexture()).getVGImage();
             });
             this.placeholderImage = ctx.memory.creatImage2D(1, 1, 1, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
             this.placeholderImageView = new VImageView(ctx, placeholderImage);
