@@ -7,7 +7,7 @@ import me.cortex.vulkanite.compat.IRenderTargetVkGetter;
 import me.cortex.vulkanite.compat.RaytracingShaderSet;
 import me.cortex.vulkanite.lib.base.VContext;
 import net.irisshaders.iris.mixin.LevelRendererAccessor;
-import net.irisshaders.iris.pipeline.newshader.NewWorldRenderingPipeline;
+import net.irisshaders.iris.pipeline.newshader.IrisRenderingPipeline;
 import net.irisshaders.iris.rendertarget.RenderTargets;
 import net.irisshaders.iris.shaderpack.ProgramSet;
 import net.minecraft.client.render.Camera;
