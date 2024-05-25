@@ -19,8 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = NewWorldRenderingPipeline.class, remap = false)
-public class MixinNewWorldRenderingPipeline {
+@Mixin(value = IrisRenderingPipeline.class, remap = false)
+public class MixinIrisRenderingPipeline {
     @Shadow @Final private RenderTargets renderTargets;
     @Unique private RaytracingShaderSet[] rtShaderPasses = null;
     @Unique private VContext ctx;
