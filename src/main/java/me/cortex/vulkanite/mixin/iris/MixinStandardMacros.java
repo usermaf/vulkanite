@@ -1,7 +1,7 @@
 package me.cortex.vulkanite.mixin.iris;
 
 import net.irisshaders.iris.gl.shader.StandardMacros;
-import net.irisshaders.iris.shaderpack.StringPair;
+import net.irisshaders.iris.helpers.StringPair;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
