@@ -1,6 +1,6 @@
 package me.cortex.vulkanite.client.rendering;
 
-import net.coderbot.iris.uniforms.CapturedRenderingState;
+import net.irisshaders.iris.uniforms.CapturedRenderingState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.CameraSubmersionType;
 import net.minecraft.client.world.ClientWorld;

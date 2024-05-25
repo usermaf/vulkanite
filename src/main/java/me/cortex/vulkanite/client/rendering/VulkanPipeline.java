@@ -37,8 +37,8 @@ import org.lwjgl.vulkan.*;
 
 import java.nio.ByteBuffer;
 
-import static net.coderbot.iris.uniforms.CelestialUniforms.getSunAngle;
-import static net.coderbot.iris.uniforms.CelestialUniforms.isDay;
+import static net.irisshaders.iris.uniforms.CelestialUniforms.getSunAngle;
+import static net.irisshaders.iris.uniforms.CelestialUniforms.isDay;
 import static org.lwjgl.opengl.EXTSemaphore.GL_LAYOUT_GENERAL_EXT;
 import static org.lwjgl.opengl.GL11C.glFinish;
 import static org.lwjgl.opengl.GL11C.glFlush;
