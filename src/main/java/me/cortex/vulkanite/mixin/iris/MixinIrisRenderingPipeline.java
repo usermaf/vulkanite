@@ -10,6 +10,7 @@ import net.irisshaders.iris.mixin.LevelRendererAccessor;
 import net.irisshaders.iris.pipeline.IrisRenderingPipeline;
 import net.irisshaders.iris.targets.RenderTargets;
 import net.irisshaders.iris.shaderpack.programs.ProgramSet;
+import net.irisshaders.iris.uniforms.CelestialUniforms;
 import net.minecraft.client.render.Camera;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
