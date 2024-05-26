@@ -22,6 +22,8 @@ import me.cortex.vulkanite.lib.pipeline.VRaytracePipeline;
 import net.irisshaders.iris.gl.buffer.ShaderStorageBuffer;
 import net.irisshaders.iris.texture.pbr.PBRTextureHolder;
 import net.irisshaders.iris.texture.pbr.PBRTextureManager;
+import net.irisshaders.iris.texture.pbr.TextureAtlasExtension;
+import net.irisshaders.iris.texture.pbr.PBRAtlasTexture;
 import net.irisshaders.iris.uniforms.CapturedRenderingState;
 import net.irisshaders.iris.uniforms.CommonUniforms;
 import net.irisshaders.iris.uniforms.SystemTimeUniforms;
