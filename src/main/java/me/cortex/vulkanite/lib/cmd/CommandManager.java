@@ -45,14 +45,6 @@ public class CommandManager {
         }
     }
 
-        public void executeWait(Consumer<VCmdBuff> cmdbuf) {
-        var cmd = singleUsePool.createCommandBuffer();
-        cmd.begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
-        cmdbuf.accept(cmd);
-        cmd.end();
-        submitOnceAndWait(0, cmd);
-    }
-
     //TODO: if its a single use command buffer, automatically add the required fences and stuff to free the command buffer once its done
     public void submit(int queueId, VCmdBuff[] cmdBuffs, VSemaphore[] waits, int[] waitStages, VSemaphore[] triggers, VFence fence) {
         if (queueId == 0) {
