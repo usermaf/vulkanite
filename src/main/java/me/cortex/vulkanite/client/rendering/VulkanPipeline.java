@@ -60,7 +60,7 @@ public class VulkanPipeline {
 
     private final VSampler sampler;
 
-    private final SharedImageViewTracker composite0mainView;
+    private final SharedImageViewTracker[] irisRenderTargetViews;
     private final SharedImageViewTracker blockAtlasView;
     private final SharedImageViewTracker blockAtlasNormalView;
     private final SharedImageViewTracker blockAtlasSpecularView;
