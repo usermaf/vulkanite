@@ -37,11 +37,6 @@ public abstract class MixinSpriteAtlasTexture extends AbstractTexture implements
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
         setVGImage(img);
 
-        Vulkanite.INSTANCE.getCtx().cmd.executeWait(cmdbuf -> {
-            cmdbuf.encodeImageTransition(img, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_GENERAL, VK_IMAGE_ASPECT_COLOR_BIT, VK_REMAINING_MIP_LEVELS);
-        });
-
-
         GlStateManager._bindTexture(getGlId());
         if (maxLevel >= 0) {
             GlStateManager._texParameter(3553, 33085, maxLevel);
