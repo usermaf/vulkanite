@@ -76,7 +76,7 @@ public class VulkanPipeline {
         this.singleUsePool = ctx.cmd.createSingleUsePool();
 
         {
-            this.composite0mainView = new SharedImageViewTracker(ctx, null);
+            this.irisRenderTargetViews = new SharedImageViewTracker(ctx, null);
             this.blockAtlasView = new SharedImageViewTracker(ctx, ()->{
                 AbstractTexture blockAtlas = MinecraftClient.getInstance().getTextureManager().getTexture(new Identifier("minecraft", "textures/atlas/blocks.png"));
                 return ((IVGImage)blockAtlas).getVGImage();
@@ -224,7 +224,7 @@ public class VulkanPipeline {
                     .uniform(0, uboBuffer)
                     .acceleration(1, tlas)
                     .buffer(2, accelerationManager.getReferenceBuffer())
-                    .imageStore(3, composite0mainView.getView(()->outImg))
+                    .imageStore(3, irisRenderTargetViews.getView(()->outImg))
                     .imageSampler(4, blockAtlasView.getView(), sampler)
                     .imageSampler(5, blockAtlasNormalView.getView(), sampler)
                     .imageSampler(6, blockAtlasSpecularView.getView(), sampler)
@@ -237,7 +237,7 @@ public class VulkanPipeline {
 
             try (var stack = stackPush()) {
                 var barriers = VkImageMemoryBarrier.calloc(4, stack);
-                applyImageBarrier(barriers.get(), composite0mainView.getImage(), VK_IMAGE_LAYOUT_GENERAL, VK_ACCESS_SHADER_WRITE_BIT);
+                applyImageBarrier(barriers.get(), irisRenderTargetViews.getImage(), VK_IMAGE_LAYOUT_GENERAL, VK_ACCESS_SHADER_WRITE_BIT);
                 applyImageBarrier(barriers.get(), blockAtlasView.getImage(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ACCESS_SHADER_READ_BIT);
                 var image = blockAtlasNormalView.getImage();
                 if (image != null) applyImageBarrier(barriers.get(), image, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ACCESS_SHADER_READ_BIT);
@@ -294,7 +294,7 @@ public class VulkanPipeline {
         if (previousSemaphore != null) {
             previousSemaphore.free();
         }
-        composite0mainView.free();
+        irisRenderTargetViews.free();
         blockAtlasView.free();
         blockAtlasNormalView.free();
         blockAtlasSpecularView.free();
