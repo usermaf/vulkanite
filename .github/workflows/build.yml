@@ -1,4 +1,4 @@
-name: Build
+name: Check Build
 on:
   pull_request:
     branches: ['*']
@@ -8,39 +8,24 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4.1.6
-
-    - name: Fun Thing
-      run: |
-        sudo snap install ascii-image-converter
-        ascii-image-converter ${{ github.workspace }}/src/main/resources/assets/vulkanite/icon.png -C
-    
-    - name: Setup Java
-      uses: actions/setup-java@v4.2.1
-      with:
+      - uses: actions/checkout@v4
+      - uses: gradle/wrapper-validation-action@v2
+      - uses: actions/setup-java@v4
+        with:
           distribution: 'zulu'
-          java-version: '21'
-          
-    - name: Caching
-      uses: actions/cache@v4.0.2
-      with:
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-          ${{ github.workspace }}/build/loom-cache
-          ${{ github.workspace }}/build/processIncludeJars
-          
-    - name: Compile
-      id: compile
-      run: ./gradlew build --stacktrace --warning-mode all
-      
-    - name: Upload Build to Releases
-      env:
-        GH_TOKEN: ${{ github.token }}
-      if: (steps.compile.outcome == 'success')
-      run: |
-        cd ${{ github.workspace }}/build/libs
-        gh release upload $(grep "mod_version" "../../gradle.properties"|cut -d'=' -f2) $(grep "archives_base_name" "../../gradle.properties"|cut -d'=' -f2)-$(grep "mod_version" "../../gradle.properties"|cut -d'=' -f2).jar
+          java-version: '17'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      - run: ./gradlew build --stacktrace --no-daemon
+     
+      - name: Publish Artifacts on GitHub Actions
+        uses: actions/upload-artifact@v3   
+        with:
+          if-no-files-found: error
+          path: build/libs/
+          name: Vulkanite JAR
