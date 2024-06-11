@@ -5,11 +5,11 @@ import me.cortex.vulkanite.client.Vulkanite;
 import me.cortex.vulkanite.compat.IVGImage;
 import me.cortex.vulkanite.lib.memory.VGImage;
 import me.cortex.vulkanite.lib.other.FormatConverter;
-import net.coderbot.iris.gl.IrisRenderSystem;
-import net.coderbot.iris.gl.texture.GlTexture;
-import net.coderbot.iris.gl.texture.InternalTextureFormat;
-import net.coderbot.iris.gl.texture.TextureType;
-import net.coderbot.iris.shaderpack.texture.TextureFilteringData;
+import net.irisshaders.iris.gl.IrisRenderSystem;
+import net.irisshaders.iris.gl.texture.GlTexture;
+import net.irisshaders.iris.gl.texture.InternalTextureFormat;
+import net.irisshaders.iris.gl.texture.TextureType;
+import net.irisshaders.iris.shaderpack.texture.TextureFilteringData;
 import org.lwjgl.opengl.GL30;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -82,6 +82,10 @@ public abstract class MixinGlTexture extends MixinGlResource implements IVGImage
         }
     }
 
+    /**
+     * @author javaruntimes
+     * @reason I wanted this warning to go away so i added this shit
+     */
     @Overwrite
     protected void destroyInternal(){
         glFinish();

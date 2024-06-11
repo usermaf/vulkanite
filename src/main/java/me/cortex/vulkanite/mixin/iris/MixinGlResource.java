@@ -3,10 +3,10 @@ package me.cortex.vulkanite.mixin.iris;
 import me.cortex.vulkanite.client.Vulkanite;
 import me.cortex.vulkanite.compat.IRenderTargetVkGetter;
 import me.cortex.vulkanite.lib.memory.VGImage;
-import net.coderbot.iris.gl.GlResource;
-import net.coderbot.iris.gl.texture.InternalTextureFormat;
-import net.coderbot.iris.gl.texture.PixelFormat;
-import net.coderbot.iris.rendertarget.RenderTarget;
+import net.irisshaders.iris.gl.GlResource;
+import net.irisshaders.iris.gl.texture.InternalTextureFormat;
+import net.irisshaders.iris.gl.texture.PixelFormat;
+import net.irisshaders.iris.targets.RenderTarget;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,6 +40,10 @@ public abstract class MixinGlResource {
         }
     }
 
+    /**
+     * @author
+     * @reason
+     */
     @Overwrite
     protected int getGlId(){
         assertValid();

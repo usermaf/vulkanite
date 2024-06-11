@@ -4,9 +4,9 @@ import me.cortex.vulkanite.client.Vulkanite;
 import me.cortex.vulkanite.compat.IRenderTargetVkGetter;
 import me.cortex.vulkanite.lib.memory.VGImage;
 import me.cortex.vulkanite.lib.other.FormatConverter;
-import net.coderbot.iris.gl.texture.InternalTextureFormat;
-import net.coderbot.iris.gl.texture.PixelFormat;
-import net.coderbot.iris.rendertarget.RenderTarget;
+import net.irisshaders.iris.gl.texture.InternalTextureFormat;
+import net.irisshaders.iris.gl.texture.PixelFormat;
+import net.irisshaders.iris.targets.RenderTarget;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,16 +43,28 @@ public abstract class MixinRenderTarget implements IRenderTargetVkGetter {
     @Redirect(method = "setupTexture", at = @At(value = "INVOKE",target = "Lnet/coderbot/iris/rendertarget/RenderTarget;resizeTexture(III)V"))
     private void redirectResize(RenderTarget instance, int t, int w, int h) {}
 
+    /**
+     * @author
+     * @reason
+     */
     @Overwrite
     public int getMainTexture() {
         return vgMainTexture.glId;
     }
 
+    /**
+     * @author
+     * @reason
+     */
     @Overwrite
     public int getAltTexture() {
         return vgAltTexture.glId;
     }
 
+    /**
+     * @author
+     * @reason
+     */
     @Overwrite
     public void resize(int width, int height) {
         glFinish();
