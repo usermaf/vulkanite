@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4.1.6
 
     - name: Fun Thing
       run: |
@@ -18,13 +18,13 @@ jobs:
         ascii-image-converter ${{ github.workspace }}/src/main/resources/assets/vulkanite/icon.png -C
     
     - name: Setup Java
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4.2.1
       with:
           distribution: 'zulu'
           java-version: '21'
           
     - name: Caching
-      uses: actions/cache@v3
+      uses: actions/cache@v4.0.2
       with:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         path: |
