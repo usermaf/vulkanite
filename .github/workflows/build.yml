@@ -11,13 +11,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: awalsh128/cache-apt-pkgs-action@latest
-      with:
-        packages: ascii-image-converter
-        version: 1.0
 
     - name: Fun Thing
-      run: ascii-image-converter ${{ github.workspace }}/src/main/resources/assets/vulkanite/icon.png -C
+      run: |
+        echo 'deb [trusted=yes] https://apt.fury.io/ascii-image-converter/ /' | sudo tee /etc/apt/sources.list.d/ascii-image-converter.list
+        sudo apt install -y ascii-image-converter
+        ascii-image-converter ${{ github.workspace }}/src/main/resources/assets/vulkanite/icon.png -C
     
     - name: Setup Java
       uses: actions/setup-java@v3
