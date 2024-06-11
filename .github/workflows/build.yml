@@ -11,6 +11,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: ascii-image-converter
+        version: 1.0
+
+    - name: Fun Thing
+      run: ascii-image-converter ${{ github.workspace }}/src/main/resources/assets/vulkanite/icon.png -C
     
     - name: Setup Java
       uses: actions/setup-java@v3
@@ -38,4 +45,4 @@ jobs:
       if: (steps.compile.outcome == 'success')
       run: |
         cd ${{ github.workspace }}/build/libs
-        gh release upload $(grep "mod_version" "gradle.properties"|cut -d'=' -f2) $(grep "archives_base_name" "gradle.properties"|cut -d'=' -f2)-$(grep "mod_version" "gradle.properties"|cut -d'=' -f2).jar
+        gh release upload $(grep "mod_version" "../../gradle.properties"|cut -d'=' -f2) $(grep "archives_base_name" "../../gradle.properties"|cut -d'=' -f2)-$(grep "mod_version" "../../gradle.properties"|cut -d'=' -f2).jar
