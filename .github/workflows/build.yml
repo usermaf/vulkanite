@@ -37,5 +37,5 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       if: (steps.compile.outcome == 'success')
       run: |
-        cd ${{ github.workspace }}
-        gh release upload ${{ github.workspace }}/build/libs/$(grep "mod_version" "gradle.properties"|cut -d'=' -f2) $(grep "archives_base_name" "gradle.properties"|cut -d'=' -f2)-$(grep "mod_version" "gradle.properties"|cut -d'=' -f2).jar
+        cd ${{ github.workspace }}/build/libs
+        gh release upload $(grep "mod_version" "gradle.properties"|cut -d'=' -f2) $(grep "archives_base_name" "gradle.properties"|cut -d'=' -f2)-$(grep "mod_version" "gradle.properties"|cut -d'=' -f2).jar
