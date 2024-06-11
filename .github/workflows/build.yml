@@ -21,15 +21,17 @@ jobs:
     - name: Caching
       uses: actions/cache@v3
       with:
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           
     - name: Compile
       id: compile
       run: ./gradlew build --stacktrace --warning-mode all
       
     - name: Upload Build to Releases
+      env:
+        GH_TOKEN: ${{ github.token }}
       if: (steps.compile.outcome == 'success')
       run: gh release upload $(grep "mod_version" "gradle.properties"|cut -d'=' -f2) $(grep "archives_base_name" "gradle.properties"|cut -d'=' -f2)-$(grep "mod_version" "gradle.properties"|cut -d'=' -f2).jar
