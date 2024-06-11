@@ -14,8 +14,7 @@ jobs:
 
     - name: Fun Thing
       run: |
-        echo 'deb [trusted=yes] https://apt.fury.io/ascii-image-converter/ /' | sudo tee /etc/apt/sources.list.d/ascii-image-converter.list
-        sudo apt install -y ascii-image-converter
+        sudo snap install ascii-image-converter
         ascii-image-converter ${{ github.workspace }}/src/main/resources/assets/vulkanite/icon.png -C
     
     - name: Setup Java
