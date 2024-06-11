@@ -10,21 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Compile
-      id: compile
     - uses: actions/checkout@v3
-    - uses: gradle/wrapper-validation-action@v1
+    
+    - name: Setup Java
     - uses: actions/setup-java@v3
       with:
           distribution: 'zulu'
           java-version: '21'
+          
+    - name: Caching
     - uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-    - run: ./gradlew build --stacktrace --no-daemon
+          
+    - name: Compile
+      id: compile
+    - run: ./gradlew build --stacktrace --warning-mode all
       
     - name: Upload Build to Releases
       if: (steps.compile.outcome == 'success')
